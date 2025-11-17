@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileRequest;
+use App\Http\Resources\profileresource;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Profile;
 use Illuminate\Http\Request;
@@ -24,15 +25,19 @@ class ProfileController extends Controller
             $validate_infrmation['years_experiense']= 0;
             $validate_infrmation['bio']= 'null';
         }
-        $profile_information=Profile::create($validate_infrmation);
-                return response()->json([
-                'message' => 'your profile created succesfuly',  
-                'your profile information'=>  $profile_information  ,  
-                ],200);}}
+            $profile_information=Profile::create($validate_infrmation);
+            $profile_with_user=Profile::with('User')->where('user_id',$user_id)->firstOrfail();
+            $profile= new profileresource($profile_with_user);
+            return response()->json([
+            'message' => 'your profile created succesfuly',  
+            'your profile information'=>  $profile  ,  
+            ],200);
+            }}
         else
-            $profile_exist=Profile::where('user_id',$user_id)->firstOrfail();
+            $profile_with_user=Profile::with('User')->where('user_id',$user_id)->firstOrfail();
+            $profile= new profileresource($profile_with_user);
             return response()->json([
             'message' => 'your profile created already',
-            'your profile:'=>$profile_exist],
+            'your profile:'=>$profile],
             409);        
 }}
