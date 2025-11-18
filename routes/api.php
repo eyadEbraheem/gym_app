@@ -25,3 +25,10 @@ Route::post('login', [UserController::class,'login'])->name('login');
 
 
 Route::post('add_profile', [ProfileController::class,'add_Profile'])->name('add_profile')->middleware('auth:sanctum');
+
+Route::get('/api/test', function () {
+    return response()->json([
+        'message' => 'API is working perfectly!',
+        'data' => ['Laravel', 'Railway', 'Flutter']
+    ]);
+});
