@@ -15,8 +15,16 @@ use App\Http\Controllers\UserController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 Route::get('/', function () {
-    return view('welcome');
+    return [
+        'message' => 'Laravel API is working!',
+        'status' => 'success',
+        'app' => 'Gym App Backend',
+        'timestamp' => now()
+    ];
 });
 
 Route::post('register', [UserController::class,'register'])->name('register');
