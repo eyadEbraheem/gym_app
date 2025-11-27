@@ -18,7 +18,7 @@ use App\Http\Controllers\UserController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/', function () {
+Route::get('/test', function () {
     return [
         'message' => 'Laravel API is working!',
         'status' => 'success',
@@ -34,9 +34,5 @@ Route::post('login', [UserController::class,'login'])->name('login');
 
 Route::post('add_profile', [ProfileController::class,'add_Profile'])->name('add_profile')->middleware('auth:sanctum');
 
-Route::get('/test', function () {
-    return response()->json([
-        'message' => 'API is working perfectly!',
-        'data' => ['Laravel', 'Railway', 'Flutter']
-    ]);
-});
+
+
